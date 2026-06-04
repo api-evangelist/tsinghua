@@ -1,0 +1,67 @@
+---
+aid: tsinghua
+name: Tsinghua University
+description: >-
+  Tsinghua University is a leading public research university in Beijing, China,
+  ranked #23 in the QS World University Rankings 2025. Like most Chinese
+  universities, Tsinghua does not operate a centralized public developer portal
+  or documented institutional API program; its student, course, and library
+  systems sit behind campus SSO and are not publicly documented. The most
+  notable public, programmatically accessible service is the TUNA open-source
+  mirror (mirrors.tuna.tsinghua.edu.cn), run by the student TUNA association,
+  which exposes machine-readable JSON status endpoints. A number of Tsinghua
+  research labs (THUNLP, THUML, TUNA, Tsinghua Database Group) maintain active
+  open-source code on GitHub, but these are project repositories rather than an
+  institution-wide API platform.
+type: Index
+position: Consumer
+access: 3rd-Party
+image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+url: https://raw.githubusercontent.com/api-evangelist/tsinghua/refs/heads/main/apis.yml
+tags:
+  - Education
+  - Higher Education
+  - University
+  - Research
+  - China
+  - Open Source
+created: '2026-06-03'
+modified: '2026-06-03'
+specificationVersion: '0.19'
+apis:
+  - aid: tsinghua:tuna-mirror-status
+    name: TUNA Mirror Sync Status API
+    description: >-
+      Public JSON endpoint published by the Tsinghua University TUNA open-source
+      mirror site exposing the synchronization status of hundreds of mirrored
+      repositories (Debian, Ubuntu, PyPI, CTAN, etc.). Each entry includes name,
+      status, upstream, size, and last_update timestamps. Used to drive the
+      mirror status dashboard; no authentication required.
+    humanURL: https://mirrors.tuna.tsinghua.edu.cn/
+    baseURL: https://mirrors.tuna.tsinghua.edu.cn/static/tunasync.json
+    tags: [ Mirror, Open Source, Status, JSON ]
+    properties:
+      - type: Documentation
+        url: https://mirrors.tuna.tsinghua.edu.cn/
+      - type: GitHub
+        url: https://github.com/tuna/mirror-web
+common:
+  - type: Website
+    url: https://www.tsinghua.edu.cn/en/
+  - type: Library
+    url: https://lib.tsinghua.edu.cn/en/
+  - type: GitHub
+    url: https://github.com/tuna
+  - type: LinkedIn
+    url: https://www.linkedin.com/school/tsinghua-university/
+  - type: Plans
+    url: plans/tsinghua-plans-pricing.yml
+  - type: RateLimits
+    url: rate-limits/tsinghua-rate-limits.yml
+  - type: FinOps
+    url: finops/tsinghua-finops.yml
+  - type: Review
+    url: review.yml
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com
