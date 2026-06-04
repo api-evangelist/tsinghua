@@ -1,0 +1,51 @@
+{
+  "@context": {
+    "@vocab": "https://schema.org/",
+    "tsinghua": "https://mirrors.tuna.tsinghua.edu.cn/ns#",
+    "schema": "https://schema.org/",
+    "name": "schema:name",
+    "url": "schema:url",
+    "description": "schema:description",
+    "organization": {
+      "@id": "schema:CollegeOrUniversity",
+      "@type": "@id"
+    },
+    "MirrorStatus": "tsinghua:MirrorStatus",
+    "is_master": "tsinghua:isMaster",
+    "status": "tsinghua:status",
+    "upstream": {
+      "@id": "tsinghua:upstream",
+      "@type": "@id"
+    },
+    "size": "tsinghua:size",
+    "last_update": {
+      "@id": "tsinghua:lastUpdate",
+      "@type": "schema:DateTime"
+    },
+    "last_update_ts": "tsinghua:lastUpdateTs",
+    "last_started": {
+      "@id": "tsinghua:lastStarted",
+      "@type": "schema:DateTime"
+    },
+    "last_started_ts": "tsinghua:lastStartedTs",
+    "last_ended": {
+      "@id": "tsinghua:lastEnded",
+      "@type": "schema:DateTime"
+    },
+    "last_ended_ts": "tsinghua:lastEndedTs",
+    "next_schedule": {
+      "@id": "tsinghua:nextSchedule",
+      "@type": "schema:DateTime"
+    },
+    "next_schedule_ts": "tsinghua:nextScheduleTs"
+  },
+  "@type": "CollegeOrUniversity",
+  "name": "Tsinghua University",
+  "url": "https://www.tsinghua.edu.cn/en/",
+  "description": "Public research university in Beijing, China. The TUNA association operates an open-source mirror site exposing a machine-readable mirror synchronization status API.",
+  "subOrganization": {
+    "@type": "Organization",
+    "name": "TUNA Association",
+    "url": "https://mirrors.tuna.tsinghua.edu.cn/"
+  }
+}

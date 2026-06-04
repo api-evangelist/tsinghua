@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/tsinghua/main/json-structure/tsinghua-mirror-status-structure.json",
+  "name": "MirrorStatus",
+  "description": "JSON Structure for a single TUNA mirror synchronization status entry.",
+  "type": "object",
+  "properties": {
+    "name": { "type": "string", "description": "Identifier of the mirror." },
+    "is_master": { "type": "boolean", "description": "Whether this is a master sync job." },
+    "status": {
+      "type": "string",
+      "description": "Current synchronization status.",
+      "enum": ["success", "syncing", "failed", "paused"]
+    },
+    "last_update": { "type": "string", "description": "Last successful update timestamp." },
+    "last_update_ts": { "type": "int64", "description": "Last successful update, Unix epoch seconds." },
+    "last_started": { "type": "string", "description": "Most recent run start timestamp." },
+    "last_started_ts": { "type": "int64", "description": "Most recent run start, Unix epoch seconds." },
+    "last_ended": { "type": "string", "description": "Most recent run end timestamp." },
+    "last_ended_ts": { "type": "int64", "description": "Most recent run end, Unix epoch seconds." },
+    "next_schedule": { "type": "string", "description": "Next scheduled run timestamp." },
+    "next_schedule_ts": { "type": "int64", "description": "Next scheduled run, Unix epoch seconds." },
+    "upstream": { "type": "string", "description": "Upstream source URL." },
+    "size": { "type": "string", "description": "Human-readable on-disk size." }
+  },
+  "required": [
+    "name",
+    "is_master",
+    "status",
+    "last_update",
+    "last_update_ts",
+    "last_started",
+    "last_started_ts",
+    "last_ended",
+    "last_ended_ts",
+    "next_schedule",
+    "next_schedule_ts",
+    "upstream",
+    "size"
+  ]
+}

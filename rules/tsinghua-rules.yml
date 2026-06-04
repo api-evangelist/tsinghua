@@ -1,0 +1,45 @@
+extends: spectral:oas
+formats:
+  - oas3
+rules:
+  tsinghua-info-contact:
+    description: API info should include a contact for the TUNA association.
+    given: $.info
+    severity: warn
+    then:
+      field: contact
+      function: truthy
+  tsinghua-info-license:
+    description: API info should declare a license.
+    given: $.info
+    severity: warn
+    then:
+      field: license
+      function: truthy
+  tsinghua-operation-id:
+    description: Every operation must have an operationId.
+    given: $.paths[*][*]
+    severity: error
+    then:
+      field: operationId
+      function: truthy
+  tsinghua-status-enum:
+    description: Mirror status must constrain values to the known tunasync states.
+    given: $.components.schemas.MirrorStatus.properties.status
+    severity: error
+    then:
+      field: enum
+      function: truthy
+  tsinghua-timestamp-int64:
+    description: Unix epoch timestamp fields should use integer int64 format.
+    given: $.components.schemas.MirrorStatus.properties[?(@property.match(/_ts$/))]
+    severity: warn
+    then:
+      - field: type
+        function: pattern
+        functionOptions:
+          match: '^integer$'
+      - field: format
+        function: pattern
+        functionOptions:
+          match: '^int64$'

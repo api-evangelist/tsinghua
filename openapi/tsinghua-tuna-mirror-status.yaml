@@ -1,0 +1,137 @@
+openapi: 3.0.3
+info:
+  title: TUNA Mirror Sync Status API
+  description: >-
+    Public, unauthenticated JSON endpoint published by the Tsinghua University
+    TUNA open-source mirror site (mirrors.tuna.tsinghua.edu.cn). It exposes the
+    tunasync synchronization status of every mirrored repository served by the
+    site (Debian, Ubuntu, PyPI, CTAN, Hackage, and many others). Each entry
+    reports the mirror name, current sync status, upstream source, on-disk size,
+    and a set of timestamps describing the last and next synchronization runs.
+    The document drives the public mirror status dashboard. This OpenAPI
+    description was produced faithfully from the live response structure; TUNA
+    does not publish a formal machine-readable specification.
+  version: 1.0.0
+  contact:
+    name: TUNA Association, Tsinghua University
+    url: https://mirrors.tuna.tsinghua.edu.cn/
+  license:
+    name: tunasync (MIT)
+    url: https://github.com/tuna/tunasync/blob/master/LICENSE
+servers:
+  - url: https://mirrors.tuna.tsinghua.edu.cn
+    description: Tsinghua University TUNA mirror site
+paths:
+  /static/tunasync.json:
+    get:
+      operationId: getMirrorSyncStatus
+      summary: Get mirror sync status
+      description: >-
+        Returns an array of status objects, one per mirrored repository managed
+        by tunasync. No authentication is required.
+      tags:
+        - Mirror Status
+      responses:
+        '200':
+          description: A list of mirror synchronization status entries.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MirrorStatusList'
+components:
+  schemas:
+    MirrorStatusList:
+      type: array
+      description: Collection of per-mirror synchronization status entries.
+      items:
+        $ref: '#/components/schemas/MirrorStatus'
+    MirrorStatus:
+      type: object
+      description: Synchronization status for a single mirrored repository.
+      required:
+        - name
+        - is_master
+        - status
+        - last_update
+        - last_update_ts
+        - last_started
+        - last_started_ts
+        - last_ended
+        - last_ended_ts
+        - next_schedule
+        - next_schedule_ts
+        - upstream
+        - size
+      properties:
+        name:
+          type: string
+          description: Identifier of the mirror (e.g. "debian", "pypi", "hackage").
+          example: artixlinux-iso
+        is_master:
+          type: boolean
+          description: Whether this mirror is a master (primary) sync job.
+          example: true
+        status:
+          type: string
+          description: Current synchronization status of the mirror.
+          enum:
+            - success
+            - syncing
+            - failed
+            - paused
+          example: success
+        last_update:
+          type: string
+          description: >-
+            Human-readable timestamp of the last successful update, formatted as
+            "YYYY-MM-DD HH:MM:SS +ZZZZ".
+          example: '2026-06-04 05:36:00 +0800'
+        last_update_ts:
+          type: integer
+          format: int64
+          description: Unix epoch seconds of the last successful update.
+          example: 1780522560
+        last_started:
+          type: string
+          description: Human-readable timestamp of when the most recent sync run started.
+          example: '2026-06-04 05:35:55 +0800'
+        last_started_ts:
+          type: integer
+          format: int64
+          description: Unix epoch seconds of when the most recent sync run started.
+          example: 1780522555
+        last_ended:
+          type: string
+          description: Human-readable timestamp of when the most recent sync run ended.
+          example: '2026-06-04 05:36:00 +0800'
+        last_ended_ts:
+          type: integer
+          format: int64
+          description: Unix epoch seconds of when the most recent sync run ended.
+          example: 1780522560
+        next_schedule:
+          type: string
+          description: >-
+            Human-readable timestamp of the next scheduled sync run. May be a
+            zero/sentinel value ("0001-01-01 00:00:00 +0000") when no run is
+            scheduled.
+          example: '2026-06-04 11:36:00 +0800'
+        next_schedule_ts:
+          type: integer
+          format: int64
+          description: >-
+            Unix epoch seconds of the next scheduled sync run. May be negative
+            (sentinel) when no run is scheduled.
+          example: 1780544160
+        upstream:
+          type: string
+          description: Upstream source URL the mirror synchronizes from.
+          example: rsync://download.artixlinux.org/iso/
+        size:
+          type: string
+          description: >-
+            Human-readable on-disk size of the mirror (e.g. "11.4G", "1.26T").
+          example: 54.0G
+tags:
+  - name: Mirror Status
+    description: Endpoints describing mirror synchronization state.

@@ -1,0 +1,47 @@
+[
+  {
+    "name": "artixlinux-iso",
+    "is_master": true,
+    "status": "success",
+    "last_update": "2026-06-04 05:36:00 +0800",
+    "last_update_ts": 1780522560,
+    "last_started": "2026-06-04 05:35:55 +0800",
+    "last_started_ts": 1780522555,
+    "last_ended": "2026-06-04 05:36:00 +0800",
+    "last_ended_ts": 1780522560,
+    "next_schedule": "2026-06-04 11:36:00 +0800",
+    "next_schedule_ts": 1780544160,
+    "upstream": "rsync://download.artixlinux.org/iso/",
+    "size": "54.0G"
+  },
+  {
+    "name": "pkgsrc.git",
+    "is_master": true,
+    "status": "syncing",
+    "last_update": "2026-06-04 08:36:45 +0800",
+    "last_update_ts": 1780533405,
+    "last_started": "2026-06-04 10:36:48 +0800",
+    "last_started_ts": 1780540608,
+    "last_ended": "2026-06-04 08:36:45 +0800",
+    "last_ended_ts": 1780533405,
+    "next_schedule": "0001-01-01 00:00:00 +0000",
+    "next_schedule_ts": -62135596800,
+    "upstream": "https://github.com/NetBSD/pkgsrc.git",
+    "size": "1.8G"
+  },
+  {
+    "name": "solus",
+    "is_master": true,
+    "status": "success",
+    "last_update": "2026-06-04 09:15:31 +0800",
+    "last_update_ts": 1780535731,
+    "last_started": "2026-06-04 09:14:38 +0800",
+    "last_started_ts": 1780535678,
+    "last_ended": "2026-06-04 09:15:31 +0800",
+    "last_ended_ts": 1780535731,
+    "next_schedule": "2026-06-04 13:15:31 +0800",
+    "next_schedule_ts": 1780550131,
+    "upstream": "rsync://packages.getsol.us/soluspackages/",
+    "size": "1.26T"
+  }
+]

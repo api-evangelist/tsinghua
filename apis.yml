@@ -45,6 +45,20 @@ apis:
         url: https://mirrors.tuna.tsinghua.edu.cn/
       - type: GitHub
         url: https://github.com/tuna/mirror-web
+      - type: OpenAPI
+        url: openapi/tsinghua-tuna-mirror-status.yaml
+      - type: JSONSchema
+        url: json-schema/tsinghua-mirror-status-schema.json
+      - type: JSONStructure
+        url: json-structure/tsinghua-mirror-status-structure.json
+      - type: Example
+        url: examples/tsinghua-getMirrorSyncStatus-example.json
+      - type: Rules
+        url: rules/tsinghua-rules.yml
+      - type: Vocabulary
+        url: vocabulary/tsinghua-vocabulary.yml
+      - type: JSONLD
+        url: json-ld/tsinghua-context.jsonld
 common:
   - type: Website
     url: https://www.tsinghua.edu.cn/en/

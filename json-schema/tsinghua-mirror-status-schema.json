@@ -1,0 +1,78 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/tsinghua/main/json-schema/tsinghua-mirror-status-schema.json",
+  "title": "MirrorStatus",
+  "description": "Synchronization status for a single mirrored repository served by the Tsinghua TUNA mirror (tunasync).",
+  "type": "object",
+  "required": [
+    "name",
+    "is_master",
+    "status",
+    "last_update",
+    "last_update_ts",
+    "last_started",
+    "last_started_ts",
+    "last_ended",
+    "last_ended_ts",
+    "next_schedule",
+    "next_schedule_ts",
+    "upstream",
+    "size"
+  ],
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Identifier of the mirror."
+    },
+    "is_master": {
+      "type": "boolean",
+      "description": "Whether this mirror is a master (primary) sync job."
+    },
+    "status": {
+      "type": "string",
+      "description": "Current synchronization status of the mirror.",
+      "enum": ["success", "syncing", "failed", "paused"]
+    },
+    "last_update": {
+      "type": "string",
+      "description": "Human-readable timestamp of the last successful update."
+    },
+    "last_update_ts": {
+      "type": "integer",
+      "description": "Unix epoch seconds of the last successful update."
+    },
+    "last_started": {
+      "type": "string",
+      "description": "Human-readable timestamp of when the most recent sync run started."
+    },
+    "last_started_ts": {
+      "type": "integer",
+      "description": "Unix epoch seconds of when the most recent sync run started."
+    },
+    "last_ended": {
+      "type": "string",
+      "description": "Human-readable timestamp of when the most recent sync run ended."
+    },
+    "last_ended_ts": {
+      "type": "integer",
+      "description": "Unix epoch seconds of when the most recent sync run ended."
+    },
+    "next_schedule": {
+      "type": "string",
+      "description": "Human-readable timestamp of the next scheduled sync run."
+    },
+    "next_schedule_ts": {
+      "type": "integer",
+      "description": "Unix epoch seconds of the next scheduled sync run; may be negative when unscheduled."
+    },
+    "upstream": {
+      "type": "string",
+      "description": "Upstream source URL the mirror synchronizes from."
+    },
+    "size": {
+      "type": "string",
+      "description": "Human-readable on-disk size of the mirror."
+    }
+  },
+  "additionalProperties": false
+}

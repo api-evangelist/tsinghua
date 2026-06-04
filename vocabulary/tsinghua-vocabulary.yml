@@ -1,0 +1,55 @@
+vocabulary:
+  name: Tsinghua TUNA Mirror Sync Vocabulary
+  description: >-
+    Controlled vocabulary for the terms used by the Tsinghua University TUNA
+    open-source mirror synchronization status API (tunasync).
+  version: 1.0.0
+  terms:
+    - term: mirror
+      definition: >-
+        A locally hosted copy of an upstream software repository served by the
+        TUNA mirror site.
+      tags: [ mirror, open-source ]
+    - term: tunasync
+      definition: >-
+        The open-source mirror management system developed by TUNA that
+        schedules and tracks repository synchronization jobs.
+      tags: [ tooling, sync ]
+    - term: master
+      definition: >-
+        A primary synchronization job for a mirror, distinguished from worker or
+        derived jobs (is_master = true).
+      tags: [ sync, job ]
+    - term: status
+      definition: >-
+        The current state of a mirror sync job; one of success, syncing, failed,
+        or paused.
+      tags: [ status, state ]
+    - term: success
+      definition: The mirror's most recent synchronization completed successfully.
+      tags: [ status ]
+    - term: syncing
+      definition: The mirror is currently synchronizing from its upstream source.
+      tags: [ status ]
+    - term: failed
+      definition: The mirror's most recent synchronization attempt failed.
+      tags: [ status ]
+    - term: paused
+      definition: Synchronization for the mirror is paused and not scheduled to run.
+      tags: [ status ]
+    - term: upstream
+      definition: >-
+        The remote source URL (HTTP, HTTPS, or rsync) from which a mirror is
+        synchronized.
+      tags: [ source ]
+    - term: last_update
+      definition: Timestamp of the mirror's last successful update.
+      tags: [ timestamp ]
+    - term: next_schedule
+      definition: >-
+        Timestamp of the next scheduled synchronization run; a sentinel value
+        indicates no scheduled run.
+      tags: [ timestamp, schedule ]
+    - term: size
+      definition: The human-readable on-disk size of the mirrored content.
+      tags: [ storage ]
