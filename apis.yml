@@ -51,7 +51,7 @@ apis:
         url: json-schema/tsinghua-mirror-status-schema.json
       - type: JSONStructure
         url: json-structure/tsinghua-mirror-status-structure.json
-      - type: Example
+      - type: Examples
         url: examples/tsinghua-getMirrorSyncStatus-example.json
       - type: Rules
         url: rules/tsinghua-rules.yml
