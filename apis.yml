@@ -60,6 +60,8 @@ apis:
       - type: JSONLD
         url: json-ld/tsinghua-context.jsonld
 common:
+  - type: DomainSecurity
+    url: security/tsinghua-domain-security.yml
   - type: Website
     url: https://www.tsinghua.edu.cn/en/
   - type: Library
