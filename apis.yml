@@ -14,9 +14,21 @@ description: >-
   open-source code on GitHub, but these are project repositories rather than an
   institution-wide API platform.
 type: Index
+accessModel:
+  pricing: free
+  onboarding: unknown
+  trial: false
+  try_now: false
+  public: false
+  label: Free
+  confidence: medium
+  source:
+  - plans
+  generated: '2026-07-22'
+  method: derived
 position: Consumer
 access: 3rd-Party
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/tsinghua.png
 url: https://raw.githubusercontent.com/api-evangelist/tsinghua/refs/heads/main/apis.yml
 tags:
   - Education
@@ -29,36 +41,32 @@ created: '2026-06-03'
 modified: '2026-06-03'
 specificationVersion: '0.19'
 apis:
-  - aid: tsinghua:tuna-mirror-status
-    name: TUNA Mirror Sync Status API
-    description: >-
-      Public JSON endpoint published by the Tsinghua University TUNA open-source
-      mirror site exposing the synchronization status of hundreds of mirrored
-      repositories (Debian, Ubuntu, PyPI, CTAN, etc.). Each entry includes name,
-      status, upstream, size, and last_update timestamps. Used to drive the
-      mirror status dashboard; no authentication required.
-    humanURL: https://mirrors.tuna.tsinghua.edu.cn/
-    baseURL: https://mirrors.tuna.tsinghua.edu.cn/static/tunasync.json
-    tags: [ Mirror, Open Source, Status, JSON ]
-    properties:
-      - type: Documentation
-        url: https://mirrors.tuna.tsinghua.edu.cn/
-      - type: GitHub
-        url: https://github.com/tuna/mirror-web
-      - type: OpenAPI
-        url: openapi/tsinghua-tuna-mirror-status.yaml
-      - type: JSONSchema
-        url: json-schema/tsinghua-mirror-status-schema.json
-      - type: JSONStructure
-        url: json-structure/tsinghua-mirror-status-structure.json
-      - type: Examples
-        url: examples/tsinghua-getMirrorSyncStatus-example.json
-      - type: Rules
-        url: rules/tsinghua-rules.yml
-      - type: Vocabulary
-        url: vocabulary/tsinghua-vocabulary.yml
-      - type: JSONLD
-        url: json-ld/tsinghua-context.jsonld
+- aid: tsinghua:tsinghua-mirror-status-api
+  name: Tsinghua University Mirror Status API
+  description: Endpoints describing mirror synchronization state.
+  humanURL: https://mirrors.tuna.tsinghua.edu.cn/
+  baseURL: https://mirrors.tuna.tsinghua.edu.cn/static/tunasync.json
+  tags:
+  - Mirror Status
+  properties:
+  - type: OpenAPI
+    url: openapi/tsinghua-mirror-status-api-openapi.yml
+  - type: Documentation
+    url: https://mirrors.tuna.tsinghua.edu.cn/
+  - type: GitHub
+    url: https://github.com/tuna/mirror-web
+  - type: JSONSchema
+    url: json-schema/tsinghua-mirror-status-schema.json
+  - type: JSONStructure
+    url: json-structure/tsinghua-mirror-status-structure.json
+  - type: Examples
+    url: examples/tsinghua-getMirrorSyncStatus-example.json
+  - type: Rules
+    url: rules/tsinghua-rules.yml
+  - type: Vocabulary
+    url: vocabulary/tsinghua-vocabulary.yml
+  - type: JSONLD
+    url: json-ld/tsinghua-context.jsonld
 common:
   - type: AgenticAccess
     url: agentic-access/tsinghua-agentic-access.yml
