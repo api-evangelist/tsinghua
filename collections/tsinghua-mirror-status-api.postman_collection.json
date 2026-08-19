@@ -1,0 +1,104 @@
+{
+  "item": [
+    {
+      "id": "e3e85d67-448a-45a2-b133-fdd006d9d7d7",
+      "name": "Mirror Status",
+      "description": {
+        "content": "Endpoints describing mirror synchronization state.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "0c05d6bd-c868-48c0-99a2-05864931be9e",
+          "name": "Get mirror sync status",
+          "request": {
+            "name": "Get mirror sync status",
+            "description": {
+              "content": "Returns an array of status objects, one per mirrored repository managed by tunasync. No authentication is required.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "static",
+                "tunasync.json"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "adae531e-f1d0-4a0f-9f77-15cbabad9d75",
+              "name": "A list of mirror synchronization status entries.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "static",
+                    "tunasync.json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"name\": \"artixlinux-iso\",\n    \"is_master\": true,\n    \"status\": \"success\",\n    \"last_update\": \"2026-06-04 05:36:00 +0800\",\n    \"last_update_ts\": 1780522560,\n    \"last_started\": \"2026-06-04 05:35:55 +0800\",\n    \"last_started_ts\": 1780522555,\n    \"last_ended\": \"2026-06-04 05:36:00 +0800\",\n    \"last_ended_ts\": 1780522560,\n    \"next_schedule\": \"2026-06-04 11:36:00 +0800\",\n    \"next_schedule_ts\": 1780544160,\n    \"upstream\": \"rsync://download.artixlinux.org/iso/\",\n    \"size\": \"54.0G\"\n  },\n  {\n    \"name\": \"artixlinux-iso\",\n    \"is_master\": true,\n    \"status\": \"success\",\n    \"last_update\": \"2026-06-04 05:36:00 +0800\",\n    \"last_update_ts\": 1780522560,\n    \"last_started\": \"2026-06-04 05:35:55 +0800\",\n    \"last_started_ts\": 1780522555,\n    \"last_ended\": \"2026-06-04 05:36:00 +0800\",\n    \"last_ended_ts\": 1780522560,\n    \"next_schedule\": \"2026-06-04 11:36:00 +0800\",\n    \"next_schedule_ts\": 1780544160,\n    \"upstream\": \"rsync://download.artixlinux.org/iso/\",\n    \"size\": \"54.0G\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://mirrors.tuna.tsinghua.edu.cn",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "59d948aa-6836-476a-be90-e92717f754ab",
+    "name": "TUNA Mirror Sync Status Mirror Status API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Public, unauthenticated JSON endpoint published by the Tsinghua University TUNA open-source mirror site (mirrors.tuna.tsinghua.edu.cn). It exposes the tunasync synchronization status of every mirrored repository served by the site (Debian, Ubuntu, PyPI, CTAN, Hackage, and many others). Each entry reports the mirror name, current sync status, upstream source, on-disk size, and a set of timestamps describing the last and next synchronization runs. The document drives the public mirror status dashboard. This OpenAPI description was produced faithfully from the live response structure; TUNA does not publish a formal machine-readable specification.\n\nContact Support:\n Name: TUNA Association, Tsinghua University",
+      "type": "text/plain"
+    }
+  }
+}

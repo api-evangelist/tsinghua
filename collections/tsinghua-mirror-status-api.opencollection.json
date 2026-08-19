@@ -1,0 +1,29 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "TUNA Mirror Sync Status Mirror Status API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Mirror Status",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get mirror sync status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://mirrors.tuna.tsinghua.edu.cn/static/tunasync.json"
+          },
+          "docs": "Returns an array of status objects, one per mirrored repository managed by tunasync. No authentication is required."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
