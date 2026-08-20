@@ -61,6 +61,22 @@ tags:
   - Beijing
   - C9 League
   - Research
+  - Open-Source
+  - Mirror
+  - Identity Federation
+  - Shibboleth
+  - SAML
+  - Research Data
+  - DOI
+  - Library
+tags_raw:
+  - Education
+  - Higher Education
+  - University
+  - China
+  - Beijing
+  - C9 League
+  - Research
   - Open Source
   - Mirror
   - Identity Federation
@@ -88,6 +104,11 @@ apis:
   humanURL: https://mirrors.tuna.tsinghua.edu.cn/
   baseURL: https://mirrors.tuna.tsinghua.edu.cn
   tags:
+  - Mirror Status
+  - ISO Images
+  - Open-Source
+  - Package Mirror
+  tags_raw:
   - Mirror Status
   - ISO Images
   - Open Source
