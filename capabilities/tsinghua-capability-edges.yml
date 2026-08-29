@@ -1,0 +1,26 @@
+slug: tsinghua
+provider: Tsinghua University
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Education
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 1
+edges:
+- tag: Identity Federation
+  spec_file: tsinghua-identity-federation-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.85
+  evidence: GET /idp/profile/SAML2/Redirect/SSO  samlRedirectSingleSignOn  SAML 2.0 HTTP-Redirect single
+    sign-on; GET /idp/profile/SAML2/Redirect/SLO  samlRedirectSingleLogout
+  reason: A Shibboleth Identity Provider publishing SAML 2.0 federation metadata (EntityDescriptor, IDPSSODescriptor,
+    AttributeAuthorityDescriptor) and serving SSO/SLO profiles. That is federated identity and access
+    management, squarely BC-620.20; not a tenant-facing SaaS federation product.
