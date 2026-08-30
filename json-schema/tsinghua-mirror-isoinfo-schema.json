@@ -1,0 +1,63 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/tsinghua/main/json-schema/tsinghua-mirror-isoinfo-schema.json",
+  "title": "IsoCatalogEntry",
+  "description": "One mirrored distribution, font collection or application served by the Tsinghua University TUNA open-source mirror, and the installable images published for it.",
+  "x-generated": "2026-08-19",
+  "x-method": "derived",
+  "x-source": "https://mirrors.tuna.tsinghua.edu.cn/static/status/isoinfo.json",
+  "x-operator": "institution",
+  "type": "object",
+  "required": [
+    "distro",
+    "category",
+    "urls"
+  ],
+  "properties": {
+    "distro": {
+      "type": "string",
+      "description": "Display name of the distribution, font collection or application.",
+      "examples": [
+        "Ubuntu",
+        "Debian",
+        "Arch Linux"
+      ]
+    },
+    "category": {
+      "type": "string",
+      "description": "Class of the mirrored artifact.",
+      "enum": [
+        "os",
+        "font",
+        "app"
+      ]
+    },
+    "urls": {
+      "type": "array",
+      "description": "Named download locations for this entry, relative to the mirror site root.",
+      "items": {
+        "type": "object",
+        "required": [
+          "name",
+          "url"
+        ],
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Human-readable release or edition label.",
+            "examples": [
+              "26.04 (amd64, Server)"
+            ]
+          },
+          "url": {
+            "type": "string",
+            "description": "Download path relative to https://mirrors.tuna.tsinghua.edu.cn.",
+            "examples": [
+              "/ubuntu-releases/resolute/ubuntu-26.04-live-server-amd64.iso"
+            ]
+          }
+        }
+      }
+    }
+  }
+}

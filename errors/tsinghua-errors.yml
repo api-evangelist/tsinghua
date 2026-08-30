@@ -1,0 +1,68 @@
+name: Tsinghua University — error semantics
+description: >-
+  Observed error behaviour of Tsinghua University's publicly reachable machine-readable surfaces.
+  None of these surfaces publishes an error contract, an error code vocabulary or a
+  problem-details media type. Every entry below is what was actually returned to a probe on
+  2026-08-19, not what documentation claims.
+generated: '2026-08-19'
+modified: '2026-08-19'
+method: probed
+source: live HTTP probes of mirrors.tuna.tsinghua.edu.cn, idp.tsinghua.edu.cn and datacite.lib.tsinghua.edu.cn
+x-operator: institution
+published_error_contract: false
+errors:
+  - surface: Tsinghua University TUNA Mirror (mirrors.tuna.tsinghua.edu.cn)
+    status: 404
+    media_type: text/html
+    shape: nginx default error page
+    body_excerpt: '<html><head><title>404 Not Found</title></head><body><center><h1>404 Not Found</h1></center><hr><center>nginx/1.22.1</center></body></html>'
+    evidence:
+      - url: https://mirrors.tuna.tsinghua.edu.cn/static/status/mirrorz.json
+        status: 404
+      - url: https://mirrors.tuna.tsinghua.edu.cn/.well-known/security.txt
+        status: 404
+    note: >-
+      A JSON endpoint that answers a miss with an HTML nginx page. Any client that assumes the
+      content type from the success case will fail to parse the error. This is the negative probe
+      that confirms the 200s elsewhere on this host are real and not a soft-404 farm.
+  - surface: Tsinghua University TUNA Mirror (mirrors.tuna.tsinghua.edu.cn)
+    status: 403
+    media_type: text/html
+    shape: trilingual access-denied page (Chinese, English, French), 15,345 bytes
+    body_excerpt: '抱歉，您目前无法访问此页面 / Sorry, you have been denied access to this page'
+    evidence:
+      - url: https://mirrors.tuna.tsinghua.edu.cn/static/tunasync.json
+        status: 403
+        note: 'issued only for browser-shaped User-Agent strings; curl/8.7.1 receives 200'
+    note: >-
+      Returned by the edge, not the application. It is content-negotiation-blind — it answers a
+      request with Accept: application/json with an HTML page — and it carries no Retry-After and
+      no machine-readable reason.
+  - surface: Tsinghua DataCite DOI resolution (datacite.lib.tsinghua.edu.cn)
+    status: 0
+    media_type: none
+    shape: no HTTP response
+    evidence:
+      - url: https://datacite.lib.tsinghua.edu.cn/
+        status: 0
+        note: TCP 443 open, TLS handshake completes against a valid *.tsinghua.edu.cn certificate, GET returns zero bytes after 60s
+      - url: https://doi.org/10.23650/data.d.2019.p24
+        status: 0
+        note: doi.org redirects into the same host and the request then hangs
+    note: >-
+      The failure mode with no status code at all. Recorded because 194 registered DOIs point at
+      this host and a resolver that never answers is indistinguishable, to a client, from a
+      network fault at the client's end.
+  - surface: Tsinghua University main site (www.tsinghua.edu.cn)
+    status: 404
+    media_type: text/html
+    shape: templated site 404, 1,693 bytes, identical body for every miss
+    evidence:
+      - url: https://www.tsinghua.edu.cn/robots.txt
+        status: 404
+      - url: https://www.tsinghua.edu.cn/llms.txt
+        status: 404
+    note: >-
+      Honest 404s with a correct status code — verified against two different paths returning the
+      same body length. Confirms the site is not a soft-200 surface, and confirms that neither
+      robots.txt nor llms.txt is published.

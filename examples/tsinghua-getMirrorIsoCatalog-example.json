@@ -1,0 +1,76 @@
+{
+  "_meta": {
+    "generated": "2026-08-19",
+    "method": "probed",
+    "source": "https://mirrors.tuna.tsinghua.edu.cn/static/status/isoinfo.json",
+    "operation": "getMirrorIsoCatalog",
+    "x-operator": "institution",
+    "note": "Verbatim excerpt of a live 200 response (67 entries total, 461KB); trimmed to the first 4 entries with at most 3 urls each. Values are unaltered."
+  },
+  "example": [
+    {
+      "distro": "Ubuntu",
+      "category": "os",
+      "urls": [
+        {
+          "name": "26.04 (amd64, Server)",
+          "url": "/ubuntu-releases/resolute/ubuntu-26.04-live-server-amd64.iso"
+        },
+        {
+          "name": "26.04 (amd64, Preinstalled Server)",
+          "url": "/ubuntu-cdimage/ubuntu/releases/resolute/release/ubuntu-26.04-preinstalled-server-amd64.img.xz"
+        },
+        {
+          "name": "26.04 (amd64, Desktop LiveDVD)",
+          "url": "/ubuntu-releases/resolute/ubuntu-26.04-desktop-amd64.iso"
+        }
+      ]
+    },
+    {
+      "distro": "Ubuntu 衍生版",
+      "category": "os",
+      "urls": [
+        {
+          "name": "Xubuntu 26.04 (amd64)",
+          "url": "/ubuntu-cdimage/xubuntu/releases/resolute/release/xubuntu-26.04-desktop-amd64.iso"
+        },
+        {
+          "name": "Ubuntu Mate 25.10 (amd64)",
+          "url": "/ubuntu-cdimage/ubuntu-mate/releases/questing/release/ubuntu-mate-25.10-desktop-amd64.iso"
+        },
+        {
+          "name": "Ubuntu Kylin 26.04 (amd64)",
+          "url": "/ubuntu-cdimage/ubuntukylin/releases/resolute/release/ubuntukylin-26.04-desktop-amd64.iso"
+        }
+      ]
+    },
+    {
+      "distro": "Debian",
+      "category": "os",
+      "urls": [
+        {
+          "name": "13.6.0 (amd64, Network installer)",
+          "url": "/debian-cd/current/amd64/iso-cd/debian-13.6.0-amd64-netinst.iso"
+        },
+        {
+          "name": "13.6.0 (amd64, Live CD with xfce)",
+          "url": "/debian-cd/current-live/amd64/iso-hybrid/debian-live-13.6.0-amd64-xfce.iso"
+        },
+        {
+          "name": "13.6.0 (amd64, Live CD with standard)",
+          "url": "/debian-cd/current-live/amd64/iso-hybrid/debian-live-13.6.0-amd64-standard.iso"
+        }
+      ]
+    },
+    {
+      "distro": "Arch Linux",
+      "category": "os",
+      "urls": [
+        {
+          "name": "2026.08.01 (x86_64, CLI-only)",
+          "url": "/archlinux/iso/latest/archlinux-2026.08.01-x86_64.iso"
+        }
+      ]
+    }
+  ]
+}

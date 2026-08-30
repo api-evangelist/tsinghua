@@ -1,0 +1,110 @@
+openapi: 3.2.0
+info:
+  title: Tsinghua University Identity Provider — SAML 2.0 Federation Metadata Identity Federation API
+  description: 'Tsinghua University operates its own Shibboleth Identity Provider at idp.tsinghua.edu.cn, on the university''s own registrable domain, and publishes machine-readable SAML 2.0 metadata about it at a public, unauthenticated URL. This is the surface class a university operates by definition, and for Tsinghua it is the only institution-operated machine-readable contract outside the student-run TUNA mirror.
+
+    The metadata document declares entityID https://idp.tsinghua.edu.cn/idp/shibboleth, a Shibboleth shibmd:Scope of tsinghua.edu.cn, an IDPSSODescriptor supporting SAML 2.0, SAML 1.1 and urn:mace:shibboleth:1.0, and an AttributeAuthorityDescriptor. Signing and encryption KeyDescriptors are embedded in the document.
+
+    This description was written from the live metadata document on 2026-08-19. Tsinghua publishes no OpenAPI for it — the metadata endpoint is the contract, and this file describes how to fetch and what comes back. The SSO, SLO, artifact-resolution and attribute-query endpoints below are transcribed from that metadata; they are SAML protocol endpoints, not REST resources, and they are listed so that the federation surface is machine-discoverable rather than to imply a callable JSON API.'
+  version: 1.0.0
+  contact:
+    name: Tsinghua University Information Technology Center
+    url: https://its.tsinghua.edu.cn/
+  termsOfService: https://www.tsinghua.edu.cn/
+servers:
+- url: https://idp.tsinghua.edu.cn
+  description: Tsinghua University Shibboleth Identity Provider (front channel)
+- url: https://idp.tsinghua.edu.cn:8443
+  description: Tsinghua University Shibboleth Identity Provider (SOAP back channel)
+tags:
+- name: Identity Federation
+  description: SAML 2.0 identity federation metadata and single sign-on endpoints.
+paths:
+  /idp/shibboleth:
+    get:
+      operationId: getSamlFederationMetadata
+      summary: Get SAML 2.0 federation metadata
+      description: 'Returns the SAML 2.0 EntityDescriptor Tsinghua University publishes about its own Identity Provider. No authentication is required. Observed 2026-08-19: HTTP 200, Content-Type application/xml;charset=UTF-8, 14,622 bytes.'
+      tags:
+      - Identity Federation
+      responses:
+        '200':
+          description: SAML 2.0 metadata document for the Tsinghua University Identity Provider.
+          content:
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/EntityDescriptor'
+  /idp/profile/SAML2/Redirect/SSO:
+    get:
+      operationId: samlRedirectSingleSignOn
+      summary: SAML 2.0 HTTP-Redirect single sign-on
+      description: SAML 2.0 SingleSignOnService with the urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect binding, as declared in the IdP's own metadata. Consumes a deflate-encoded SAML AuthnRequest from a registered service provider and answers with an authentication interaction, not with a machine-readable payload. Not callable without a federation relationship.
+      tags:
+      - Identity Federation
+      parameters:
+      - name: SAMLRequest
+        in: query
+        required: true
+        description: Deflate-encoded, base64 SAML 2.0 AuthnRequest.
+        schema:
+          type: string
+      - name: RelayState
+        in: query
+        required: false
+        description: Opaque state echoed back to the service provider.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Authentication interaction (HTML login flow at id.tsinghua.edu.cn).
+          content:
+            text/html:
+              schema:
+                type: string
+        '302':
+          description: Redirect into the university's electronic identity service.
+  /idp/profile/SAML2/Redirect/SLO:
+    get:
+      operationId: samlRedirectSingleLogout
+      summary: SAML 2.0 HTTP-Redirect single logout
+      description: SAML 2.0 SingleLogoutService with the urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect binding, as declared in the IdP's own metadata.
+      tags:
+      - Identity Federation
+      parameters:
+      - name: SAMLRequest
+        in: query
+        required: true
+        description: Deflate-encoded, base64 SAML 2.0 LogoutRequest.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Logout interaction.
+          content:
+            text/html:
+              schema:
+                type: string
+components:
+  schemas:
+    EntityDescriptor:
+      type: object
+      description: SAML 2.0 metadata EntityDescriptor, namespace urn:oasis:names:tc:SAML:2.0:metadata. Modelled here only to name what the response carries; the authoritative schema is the OASIS SAML 2.0 metadata schema.
+      properties:
+        entityID:
+          type: string
+          description: Unique identifier of the entity.
+          example: https://idp.tsinghua.edu.cn/idp/shibboleth
+        IDPSSODescriptor:
+          type: object
+          description: Identity provider role descriptor.
+          properties:
+            protocolSupportEnumeration:
+              type: string
+              example: urn:oasis:names:tc:SAML:2.0:protocol urn:oasis:names:tc:SAML:1.1:protocol urn:mace:shibboleth:1.0
+            Scope:
+              type: string
+              description: Shibboleth metadata extension (shibmd:Scope) asserting the identity namespace.
+              example: tsinghua.edu.cn
+        AttributeAuthorityDescriptor:
+          type: object
+          description: Attribute authority role descriptor, reachable over SOAP on port 8443.

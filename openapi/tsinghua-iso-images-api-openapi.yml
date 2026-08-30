@@ -1,0 +1,91 @@
+openapi: 3.2.0
+info:
+  title: TUNA Mirror ISO Image Catalog ISO Images API
+  description: 'Public, unauthenticated JSON endpoint published by the Tsinghua University TUNA open-source mirror site (mirrors.tuna.tsinghua.edu.cn). It is the machine-readable catalog behind the site''s "获取安装镜像 / Get Installation Images" page: for every distribution, font collection and application TUNA mirrors an installable image for, it lists the release name and the mirror-relative download path. Sixty-six distributions across three categories (os, font, app) were present in the response observed on 2026-08-19. This OpenAPI description was produced faithfully from the live response structure; TUNA publishes no formal machine-readable specification for it.'
+  version: 1.0.0
+  contact:
+    name: TUNA Association, Tsinghua University
+    url: https://mirrors.tuna.tsinghua.edu.cn/
+  license:
+    name: tunasync (MIT)
+    url: https://github.com/tuna/tunasync/blob/master/LICENSE
+servers:
+- url: https://mirrors.tuna.tsinghua.edu.cn
+  description: Tsinghua University TUNA mirror site
+tags:
+- name: ISO Images
+  description: Endpoints describing the installable images the mirror site serves.
+paths:
+  /static/status/isoinfo.json:
+    get:
+      operationId: getMirrorIsoCatalog
+      summary: Get installable image catalog
+      description: Returns an array of catalog entries, one per mirrored distribution, font collection or application, each carrying a list of named download URLs relative to the mirror site root. No authentication is required.
+      tags:
+      - ISO Images
+      responses:
+        '200':
+          description: A list of installable-image catalog entries.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IsoCatalog'
+        '403':
+          description: Returned by the site's edge filter to some clients. Observed on 2026-08-19 for requests carrying a desktop-browser User-Agent; the same request with a curl User-Agent was answered 200. Body is an HTML "access denied" page, not JSON.
+          content:
+            text/html:
+              schema:
+                type: string
+        '404':
+          description: Not found. Body is an nginx HTML error page, not JSON.
+          content:
+            text/html:
+              schema:
+                type: string
+components:
+  schemas:
+    IsoCatalogEntry:
+      type: object
+      description: One mirrored distribution, font collection or application and its images.
+      required:
+      - distro
+      - category
+      - urls
+      properties:
+        distro:
+          type: string
+          description: Display name of the distribution, font collection or application.
+          example: Ubuntu
+        category:
+          type: string
+          description: Class of the mirrored artifact.
+          enum:
+          - os
+          - font
+          - app
+          example: os
+        urls:
+          type: array
+          description: Named download locations for this entry.
+          items:
+            $ref: '#/components/schemas/IsoImage'
+    IsoImage:
+      type: object
+      description: A single named installable image served by the mirror.
+      required:
+      - name
+      - url
+      properties:
+        name:
+          type: string
+          description: Human-readable release/edition label.
+          example: 26.04 (amd64, Server)
+        url:
+          type: string
+          description: Download path relative to the mirror site root (https://mirrors.tuna.tsinghua.edu.cn).
+          example: /ubuntu-releases/resolute/ubuntu-26.04-live-server-amd64.iso
+    IsoCatalog:
+      type: array
+      description: Collection of installable-image catalog entries, one per distribution.
+      items:
+        $ref: '#/components/schemas/IsoCatalogEntry'

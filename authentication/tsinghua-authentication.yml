@@ -1,0 +1,95 @@
+name: Tsinghua University — authentication
+description: >-
+  How access is established across Tsinghua University's surfaces. There are only two regimes,
+  and the split between them is the whole story of this profile: everything the university itself
+  runs for its own staff and students sits behind one campus identity service, and the only
+  unauthenticated machine-readable endpoints belong to the student-run TUNA open-source mirror.
+  No developer portal, no API key issuance, no OAuth client registration and no self-service
+  credentialing of any kind was found on a Tsinghua host.
+generated: '2026-08-19'
+modified: '2026-08-19'
+method: probed
+source: >-
+  Live HTTP probes of tsinghua.edu.cn hosts on 2026-08-19, plus the SAML 2.0 metadata Tsinghua
+  publishes at https://idp.tsinghua.edu.cn/idp/shibboleth.
+x-operator: institution
+mechanisms:
+  - id: anonymous-public
+    name: Open / no credential
+    type: none
+    method: probed
+    source: live 200 responses, 2026-08-19
+    applies_to:
+      - Tsinghua University TUNA Mirror Status API
+      - Tsinghua University TUNA Mirror ISO Image Catalog API
+      - Tsinghua University Identity Provider — SAML 2.0 federation metadata
+    evidence:
+      - url: https://mirrors.tuna.tsinghua.edu.cn/static/tunasync.json
+        status: 200
+      - url: https://mirrors.tuna.tsinghua.edu.cn/static/status/isoinfo.json
+        status: 200
+      - url: https://idp.tsinghua.edu.cn/idp/shibboleth
+        status: 200
+    note: >-
+      These three answer an anonymous client with no header of any kind. They are the entire
+      unauthenticated machine-readable footprint found for this institution.
+  - id: edge-user-agent-filter
+    name: User-Agent filtering at the mirror edge
+    type: none
+    method: probed
+    source: live probes, 2026-08-19
+    applies_to:
+      - Tsinghua University TUNA Mirror Status API
+      - Tsinghua University TUNA Mirror ISO Image Catalog API
+    evidence:
+      - url: https://mirrors.tuna.tsinghua.edu.cn/static/tunasync.json
+        status: 403
+        note: 'User-Agent: Mozilla/5.0 … Chrome/126.0 Safari/537.36 — HTML "access denied" page, 15,345 bytes'
+      - url: https://mirrors.tuna.tsinghua.edu.cn/static/tunasync.json
+        status: 200
+        note: 'User-Agent: curl/8.7.1 — application/json, 74,172 bytes'
+    note: >-
+      Not an authentication mechanism, recorded here because it behaves like one for any client
+      that guesses wrong. The mirror edge answers 403 with a trilingual HTML denial page to
+      requests carrying a desktop-browser User-Agent while answering the identical request with
+      a plain tool User-Agent 200. This is the inverse of the usual bot filter and it means a
+      naive agent that spoofs a browser is locked out of the one open API this institution has.
+  - id: campus-sso
+    name: Tsinghua electronic identity service (id.tsinghua.edu.cn) — OAuth-style redirect + SAML/Shibboleth
+    type: sso
+    method: probed
+    source: live redirect chains, 2026-08-19
+    applies_to:
+      - Tsinghua Cloud (cloud.tsinghua.edu.cn)
+      - Tsinghua GitLab (git.tsinghua.edu.cn)
+      - Tsinghua Web Learning / 网络学堂 (learn.tsinghua.edu.cn)
+      - Tsinghua course registration (zhjwxk.cic.tsinghua.edu.cn)
+      - Information portal (info.tsinghua.edu.cn), campus card (card.tsinghua.edu.cn)
+    evidence:
+      - url: https://cloud.tsinghua.edu.cn/
+        status: 200
+        note: redirects to id.tsinghua.edu.cn/do/off/ui/auth/login/form/… with a /thu-oauth/callback return target
+      - url: https://git.tsinghua.edu.cn/
+        status: 200
+        note: GitLab sign-in page whose only form posts to /users/auth/thuid
+      - url: https://learn.tsinghua.edu.cn/
+        status: 200
+        note: redirects to /f/login (清华大学网络学堂 login)
+      - url: https://zhjwxk.cic.tsinghua.edu.cn/
+        status: 200
+        note: redirects to the same id.tsinghua.edu.cn login form
+      - url: https://idp.tsinghua.edu.cn/idp/shibboleth
+        status: 200
+        note: SAML 2.0 / Shibboleth metadata for the federation side of the same identity estate
+    note: >-
+      Every institution-run system found in this pass terminates at id.tsinghua.edu.cn. The
+      redirect carries an OAuth-shaped callback (/thu-oauth/callback) and the federation side is
+      Shibboleth SAML 2.0, but neither publishes a client-registration path, a scope list, a
+      discovery document or an authorization-server metadata endpoint that an outside developer
+      could use. Access is granted by institutional affiliation, not by credentialing.
+no_public_credentialing:
+  checked: '2026-08-19'
+  detail: >-
+    No API key signup, no OAuth client registration, no developer terms and no rate-limit or quota
+    documentation was found on any Tsinghua host. api.tsinghua.edu.cn, open.tsinghua.edu.cn and
+    data.tsinghua.edu.cn do not resolve.

@@ -1,0 +1,64 @@
+vocabulary:
+  name: Tsinghua University Identity Federation Vocabulary
+  description: >-
+    Controlled vocabulary for the SAML 2.0 / Shibboleth terms Tsinghua University uses in the
+    federation metadata it publishes about its own Identity Provider. Every term below appears
+    in the document at https://idp.tsinghua.edu.cn/idp/shibboleth; the definitions are the
+    standard ones, scoped to what Tsinghua actually declares.
+  version: 1.0.0
+  terms:
+    - term: EntityDescriptor
+      definition: >-
+        The root SAML 2.0 metadata element describing a single federation entity. Tsinghua's
+        declares entityID https://idp.tsinghua.edu.cn/idp/shibboleth.
+      tags: [ saml, metadata ]
+    - term: entityID
+      definition: >-
+        The globally unique identifier a federation entity is known by. Tsinghua's is a URL on
+        its own domain, which is why this surface is operator "institution".
+      tags: [ saml, identifier ]
+    - term: IDPSSODescriptor
+      definition: >-
+        The role descriptor declaring that the entity acts as an identity provider, and which
+        single sign-on protocols and bindings it supports.
+      tags: [ saml, role ]
+    - term: AttributeAuthorityDescriptor
+      definition: >-
+        The role descriptor declaring that the entity answers SAML attribute queries. Tsinghua
+        exposes SAML 1.0 and SAML 2.0 SOAP attribute services on port 8443.
+      tags: [ saml, role, attributes ]
+    - term: SingleSignOnService
+      definition: >-
+        An endpoint at which the identity provider accepts authentication requests, qualified by
+        a binding. Tsinghua declares four, all on idp.tsinghua.edu.cn.
+      tags: [ saml, sso, endpoint ]
+    - term: SingleLogoutService
+      definition: >-
+        An endpoint at which the identity provider accepts and propagates logout requests.
+        Tsinghua declares four bindings including SOAP.
+      tags: [ saml, logout, endpoint ]
+    - term: ArtifactResolutionService
+      definition: >-
+        A back-channel endpoint that exchanges a SAML artifact for the full assertion. Tsinghua
+        publishes two, both on port 8443.
+      tags: [ saml, back-channel ]
+    - term: shibmd:Scope
+      definition: >-
+        A Shibboleth metadata extension declaring the identity namespace the provider is
+        authoritative for. Tsinghua asserts tsinghua.edu.cn, non-regexp, on both role descriptors.
+      tags: [ shibboleth, scope ]
+    - term: protocolSupportEnumeration
+      definition: >-
+        The space-separated list of protocols a role supports. Tsinghua's IdP declares SAML 2.0,
+        SAML 1.1 and urn:mace:shibboleth:1.0.
+      tags: [ saml, shibboleth, protocol ]
+    - term: KeyDescriptor
+      definition: >-
+        An embedded X.509 key used for signing or encrypting SAML messages. Present in Tsinghua's
+        metadata; note that the metadata document itself is not XML-signed.
+      tags: [ saml, keys, security ]
+x-provenance:
+  generated: '2026-08-19'
+  method: derived
+  source: https://idp.tsinghua.edu.cn/idp/shibboleth (live SAML 2.0 metadata, HTTP 200, 2026-08-19)
+  x-operator: institution

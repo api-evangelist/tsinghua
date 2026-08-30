@@ -1,0 +1,231 @@
+# Domain-standard conformance — Tsinghua University — education regulatory regime (Kin Score 0.12.0)
+# Reward-only. Every entry under `conformance:` is a standard Tsinghua was OBSERVED to conform to,
+# with the exact location the observation was made and the operator of the surface it was made on.
+# Standards with no verified evidence are listed under `not_evidenced` and are NOT claimed.
+---
+aid: tsinghua
+name: Tsinghua University — education regime domain-standard conformance
+description: >-
+  Conformance observations for Tsinghua University (清华大学) against the Kin Score `education`
+  regulatory regime standards[] set (scim, lti, oneroster, ed-fi, caliper, qti, oai-pmh,
+  shibboleth, saml, orcid, datacite, crossref). Each hit records the operator of the surface the
+  standard is implemented on, because for a university the institution and the operator of the
+  thing carrying its name are frequently not the same party.
+regime: education
+generated: '2026-08-19'
+modified: '2026-08-19'
+method: probed
+source: >-
+  Direct HTTP probes of tsinghua.edu.cn hosts on 2026-08-19, plus two third-party registries that
+  publish machine-readable institutional registrations: the DataCite REST API and the Crossref
+  REST API. The re3data repository registry was also queried and returned zero Tsinghua
+  repositories.
+x-operator: institution
+
+conformance:
+
+  - standard: saml
+    name: SAML 2.0
+    status: evidenced
+    x-operator: institution
+    surface: Tsinghua University Identity Provider (idp.tsinghua.edu.cn)
+    detail: >-
+      Tsinghua publishes SAML 2.0 metadata about its own Identity Provider at a public,
+      unauthenticated URL on its own registrable domain. The document is a SAML 2.0
+      EntityDescriptor carrying an IDPSSODescriptor with four SingleSignOnService bindings, four
+      SingleLogoutService bindings, two ArtifactResolutionService endpoints and an
+      AttributeAuthorityDescriptor with SAML 1.0 and SAML 2.0 SOAP AttributeService bindings on
+      port 8443. Unlike several peers in this cohort, every SSO and SLO location resolves to a
+      Tsinghua host — the university runs the SAML service itself, it is not fronted by a vendor.
+    evidence:
+      - url: https://idp.tsinghua.edu.cn/idp/shibboleth
+        status: 200
+        locator: >-
+          Root element <EntityDescriptor xmlns="urn:oasis:names:tc:SAML:2.0:metadata">
+          entityID="https://idp.tsinghua.edu.cn/idp/shibboleth"
+        observed:
+          content_type: application/xml;charset=UTF-8
+          bytes: 14622
+          roles: [IDPSSODescriptor, AttributeAuthorityDescriptor, KeyDescriptor]
+          protocol_support: urn:oasis:names:tc:SAML:2.0:protocol urn:oasis:names:tc:SAML:1.1:protocol urn:mace:shibboleth:1.0
+          sso_locations:
+            - https://idp.tsinghua.edu.cn/idp/profile/SAML2/POST/SSO
+            - https://idp.tsinghua.edu.cn/idp/profile/SAML2/POST-SimpleSign/SSO
+            - https://idp.tsinghua.edu.cn/idp/profile/SAML2/Redirect/SSO
+            - https://idp.tsinghua.edu.cn/idp/profile/Shibboleth/SSO
+          slo_bindings:
+            - urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect
+            - urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST
+            - urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST-SimpleSign
+            - urn:oasis:names:tc:SAML:2.0:bindings:SOAP
+    artifact: examples/tsinghua-idp-saml-metadata.xml
+    contract: openapi/tsinghua-identity-federation-api-openapi.yml
+    confidence: high
+
+  - standard: shibboleth
+    name: Shibboleth
+    status: evidenced
+    x-operator: institution
+    surface: Tsinghua University Identity Provider (idp.tsinghua.edu.cn)
+    detail: >-
+      Same entity as the saml hit, recorded separately because the Shibboleth metadata extensions
+      are an independent observation. The document declares the Shibboleth metadata namespace and
+      asserts the university's identity scope, and the IdP advertises the Shibboleth 1.0
+      AuthnRequest profile alongside SAML — i.e. this is a Shibboleth IdP deployment, not merely
+      a SAML-capable product.
+    evidence:
+      - url: https://idp.tsinghua.edu.cn/idp/shibboleth
+        status: 200
+        locator: 'xmlns:shibmd="urn:mace:shibboleth:metadata:1.0" declared on the root EntityDescriptor'
+      - url: https://idp.tsinghua.edu.cn/idp/shibboleth
+        status: 200
+        locator: '<shibmd:Scope regexp="false">tsinghua.edu.cn</shibmd:Scope> — asserted twice, on both role descriptors'
+      - url: https://idp.tsinghua.edu.cn/idp/shibboleth
+        status: 200
+        locator: >-
+          IDPSSODescriptor/SingleSignOnService
+          Binding="urn:mace:shibboleth:1.0:profiles:AuthnRequest"
+          Location="https://idp.tsinghua.edu.cn/idp/profile/Shibboleth/SSO"
+    artifact: examples/tsinghua-idp-saml-metadata.xml
+    contract: openapi/tsinghua-identity-federation-api-openapi.yml
+    confidence: high
+
+  - standard: datacite
+    name: DataCite
+    status: evidenced
+    x-operator: institution
+    surface: Tsinghua University DataCite membership and DOI service (datacite.lib.tsinghua.edu.cn)
+    detail: >-
+      Tsinghua University is a DataCite direct member in its own name, symbol TSINGHUA, joined
+      2016-09-05, organizationType academicInstitution, with the university library as the
+      registered website. 194 DOIs are registered under the membership, on prefix 10.23650, and
+      their landing pages are addressed on Tsinghua's own host
+      datacite.lib.tsinghua.edu.cn/datacite/Resolution/Handler. This is an institution-operated
+      DOI registration service, not a tenancy on someone else's repository platform.
+      Two caveats are recorded rather than smoothed over. First, the landing-page host does not
+      answer HTTP from outside China: TCP connects and the TLS handshake completes against a
+      valid Let's Encrypt certificate for *.tsinghua.edu.cn, but a GET returns zero bytes after
+      60 seconds. doi.org redirects into the same dead end. Second, the two DataCite repository
+      clients under the membership are TSINGHUA.NGAC ("China Geological Survey", 2017) and
+      TSINGHUA.KUKSIK ("test", 2021) — the DOI content observed is Chinese national geological
+      survey data curated by Tsinghua, not Tsinghua's own research output repository.
+    evidence:
+      - url: https://api.datacite.org/providers/tsinghua
+        status: 200
+        locator: data.attributes
+        observed:
+          symbol: TSINGHUA
+          name: Tsinghua University
+          member_type: direct_member
+          organization_type: academicInstitution
+          country: CN
+          joined: '2016-09-05'
+          is_active: true
+          website: http://www.lib.tsinghua.edu.cn/english/
+      - url: https://api.datacite.org/dois?provider-id=tsinghua
+        status: 200
+        locator: meta.total
+        observed:
+          total_dois: 194
+          doi_prefix: '10.23650'
+          example_doi: 10.23650/data.d.2019.p24
+          landing_page_host: datacite.lib.tsinghua.edu.cn
+      - url: https://api.datacite.org/clients?provider-id=tsinghua
+        status: 200
+        locator: data[].attributes.symbol
+        observed:
+          clients: [TSINGHUA.NGAC, TSINGHUA.KUKSIK]
+      - url: https://datacite.lib.tsinghua.edu.cn/
+        status: 0
+        note: >-
+          TCP 443 open, TLS handshake completes (CN=*.tsinghua.edu.cn, Let's Encrypt), HTTP GET
+          returns zero bytes after 60s. Live host, unreadable surface from this vantage point.
+    confidence: high
+
+  - standard: crossref
+    name: Crossref
+    status: evidenced
+    x-operator: institution
+    surface: Crossref memberships held by Tsinghua University academic units
+    detail: >-
+      Two Tsinghua academic units hold Crossref memberships in their own names and register DOIs
+      under their own prefixes: the Institute of Education of Tsinghua University (member 23201,
+      prefix 10.37120, 69 works, publisher of the International Journal of Technology in Teaching
+      and Learning) and Tsinghua University School of Law (member 34993, prefix 10.55950, 0 works
+      registered to date). Both are university units, so the operator is institution.
+      Tsinghua University Press (member 11138, prefix 10.26599, 26,024 DOIs) is deliberately NOT
+      counted here: TUP is a separate publishing company on its own domain (sciopen.com), and
+      crediting the university with a publisher's DOI volume is the same attribution error this
+      pipeline exists to prevent. It is recorded as an adjacent fact, not as institutional
+      conformance.
+    evidence:
+      - url: https://api.crossref.org/members/23201
+        status: 200
+        locator: message.primary-name / message.prefixes
+        observed:
+          member_id: 23201
+          primary_name: The Institute of Education of Tsinghua University
+          location: Beijing, China
+          prefixes: ['10.37120']
+          total_dois: 68
+      - url: https://api.crossref.org/members/23201/works
+        status: 200
+        locator: message.total-results
+        observed:
+          works: 69
+          example_doi: 10.37120/ijttl.2025.21.2.03
+          container_title: International Journal of Technology in Teaching and Learning
+      - url: https://api.crossref.org/members?query=tsinghua
+        status: 200
+        locator: message.items[]
+        observed:
+          tsinghua_university_school_of_law:
+            member_id: 34993
+            prefix: '10.55950'
+            total_dois: 0
+          adjacent_not_counted:
+            member_id: 11138
+            primary_name: Tsinghua University Press
+            prefix: '10.26599'
+            total_dois: 26024
+            reason: separate publishing company, own domain (sciopen.com) — not institutional conformance
+    confidence: medium
+
+not_evidenced:
+  - standard: oai-pmh
+    reason: no_evidence_found
+    detail: >-
+      No OAI-PMH endpoint was found on any tsinghua.edu.cn host. lib.tsinghua.edu.cn/oai/request?verb=Identify
+      returns the library site's HTML 404. The re3data repository registry, queried for "tsinghua",
+      returns an empty <list> — Tsinghua registers no repository there, so there is no third-party
+      record of an OAI-PMH base URL either. This is the surface class most likely to exist and be
+      unfindable from outside China; it is recorded as absent, not as impossible.
+  - standard: scim
+    reason: no_evidence_found
+    detail: >-
+      No SCIM provisioning endpoint or documentation found on any Tsinghua-operated host. Account
+      provisioning runs through the university's own electronic identity service
+      (id.tsinghua.edu.cn), which publishes no machine-readable provisioning contract.
+  - standard: lti
+    reason: not_publicly_verifiable
+    detail: >-
+      Tsinghua runs its own learning management system at learn.tsinghua.edu.cn (网络学堂). It is
+      authenticated end to end — an unauthenticated GET lands on the login page — and publishes no
+      LTI registration or tool-configuration artifact. An LTI-capable VLE is not a published LTI
+      conformance artifact and is not claimed as one.
+  - standard: oneroster
+    reason: no_evidence_found
+  - standard: ed-fi
+    reason: no_evidence_found
+    detail: Ed-Fi is a US K-12 / state-agency data standard with no expected Chinese HE application.
+  - standard: caliper
+    reason: no_evidence_found
+  - standard: qti
+    reason: no_evidence_found
+  - standard: orcid
+    reason: no_evidence_found
+    detail: >-
+      No institution-operated ORCID integration artifact was readable. Tsinghua has no Pure,
+      Symplectic or Figshare tenancy in this profile through which an ORCID integration would
+      normally surface, and no researcher-profile system was found on a Tsinghua host that was
+      reachable unauthenticated.
