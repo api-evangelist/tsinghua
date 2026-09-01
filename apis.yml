@@ -311,6 +311,9 @@ apis:
     note: redirects to /users/sign_in — GitLab sign-in shell, 582 bytes, no anonymous project access
     checked: '2026-08-19'
 common:
+  - type: License
+    name: GPL-3.0
+    url: https://github.com/tuna/tunasync/blob/master/LICENSE
   - type: CapabilityMap
     url: capabilities/tsinghua-capability-edges.yml
     name: Tsinghua University Business Capability Map
