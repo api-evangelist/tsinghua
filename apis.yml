@@ -200,6 +200,12 @@ apis:
   - Identity Federation
   - Shibboleth
   - SAML
+  - SSO
+  - Metadata
+  tags_raw:
+  - Identity Federation
+  - Shibboleth
+  - SAML
   - Single Sign-On
   - Metadata
   properties:
