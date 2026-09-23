@@ -1,14 +1,28 @@
 {
   "provider": "tsinghua",
   "sources": [
-    "tsinghua-mirror-status-api-openapi.yml"
+    "_original/tsinghua-identity-federation.yaml",
+    "_original/tsinghua-tuna-iso-catalog.yaml",
+    "_original/tsinghua-tuna-mirror-status.yaml"
   ],
   "outputs": [
+    "tsinghua-identity-federation-api-openapi.yml",
+    "tsinghua-iso-images-api-openapi.yml",
     "tsinghua-mirror-status-api-openapi.yml"
   ],
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (3 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "tsinghua-identity-federation.yaml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "tsinghua-tuna-iso-catalog.yaml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "tsinghua-tuna-mirror-status.yaml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "tsinghua-identity-federation-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "tsinghua-iso-images-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "tsinghua-mirror-status-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }

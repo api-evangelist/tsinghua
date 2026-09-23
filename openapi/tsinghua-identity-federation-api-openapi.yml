@@ -1,11 +1,7 @@
 openapi: 3.2.0
 info:
-  title: Tsinghua University Identity Provider — SAML 2.0 Federation Metadata Identity Federation API
-  description: 'Tsinghua University operates its own Shibboleth Identity Provider at idp.tsinghua.edu.cn, on the university''s own registrable domain, and publishes machine-readable SAML 2.0 metadata about it at a public, unauthenticated URL. This is the surface class a university operates by definition, and for Tsinghua it is the only institution-operated machine-readable contract outside the student-run TUNA mirror.
-
-    The metadata document declares entityID https://idp.tsinghua.edu.cn/idp/shibboleth, a Shibboleth shibmd:Scope of tsinghua.edu.cn, an IDPSSODescriptor supporting SAML 2.0, SAML 1.1 and urn:mace:shibboleth:1.0, and an AttributeAuthorityDescriptor. Signing and encryption KeyDescriptors are embedded in the document.
-
-    This description was written from the live metadata document on 2026-08-19. Tsinghua publishes no OpenAPI for it — the metadata endpoint is the contract, and this file describes how to fetch and what comes back. The SSO, SLO, artifact-resolution and attribute-query endpoints below are transcribed from that metadata; they are SAML protocol endpoints, not REST resources, and they are listed so that the federation surface is machine-discoverable rather than to imply a callable JSON API.'
+  title: Tsinghua University Identity Provider — SAML 2.0 Federation…
+  description: Tsinghua University operates its own Shibboleth Identity Provider at idp.tsinghua.edu.cn, on the university's own registrable domain, and publishes machine-readable SAML 2.0 metadata about it at a public, unauthenticated URL.
   version: 1.0.0
   contact:
     name: Tsinghua University Information Technology Center

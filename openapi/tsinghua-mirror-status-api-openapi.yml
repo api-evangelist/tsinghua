@@ -1,7 +1,7 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
   title: TUNA Mirror Sync Status Mirror Status API
-  description: Public, unauthenticated JSON endpoint published by the Tsinghua University TUNA open-source mirror site (mirrors.tuna.tsinghua.edu.cn). It exposes the tunasync synchronization status of every mirrored repository served by the site (Debian, Ubuntu, PyPI, CTAN, Hackage, and many others). Each entry reports the mirror name, current sync status, upstream source, on-disk size, and a set of timestamps describing the last and next synchronization runs. The document drives the public mirror status dashboard. This OpenAPI description was produced faithfully from the live response structure; TUNA does not publish a formal machine-readable specification.
+  description: Public, unauthenticated JSON endpoint published by the Tsinghua University TUNA open-source mirror site (mirrors.tuna.tsinghua.edu.cn).
   version: 1.0.0
   contact:
     name: TUNA Association, Tsinghua University
@@ -32,11 +32,6 @@ paths:
                 $ref: '#/components/schemas/MirrorStatusList'
 components:
   schemas:
-    MirrorStatusList:
-      type: array
-      description: Collection of per-mirror synchronization status entries.
-      items:
-        $ref: '#/components/schemas/MirrorStatus'
     MirrorStatus:
       type: object
       description: Synchronization status for a single mirrored repository.
@@ -116,3 +111,8 @@ components:
           type: string
           description: Human-readable on-disk size of the mirror (e.g. "11.4G", "1.26T").
           example: 54.0G
+    MirrorStatusList:
+      type: array
+      description: Collection of per-mirror synchronization status entries.
+      items:
+        $ref: '#/components/schemas/MirrorStatus'

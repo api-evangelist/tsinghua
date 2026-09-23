@@ -53,3 +53,25 @@ vocabulary:
     - term: size
       definition: The human-readable on-disk size of the mirrored content.
       tags: [ storage ]
+    - term: distro
+      definition: >-
+        The display name of a distribution, font collection or application for
+        which the mirror publishes installable images (isoinfo.json).
+      tags: [ iso, catalog ]
+    - term: category
+      definition: >-
+        The class of a mirrored installable artifact; one of os, font, or app
+        (isoinfo.json).
+      tags: [ iso, catalog ]
+    - term: urls
+      definition: >-
+        The list of named, mirror-relative download locations published for a
+        single distro entry (isoinfo.json).
+      tags: [ iso, download ]
+x-provenance:
+  generated: '2026-08-19'
+  method: derived
+  source: >-
+    openapi/_original/tsinghua-tuna-mirror-status.yaml and
+    openapi/_original/tsinghua-tuna-iso-catalog.yaml, both written from live responses.
+  x-operator: institution

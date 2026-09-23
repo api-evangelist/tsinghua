@@ -4,7 +4,7 @@ schema: https://www.finops.org/framework/
 provider: Tsinghua University
 providerId: tsinghua
 created: '2026-06-03'
-modified: '2026-06-03'
+modified: '2026-08-19'
 reconciled: false
 tags:
 - Education
@@ -12,12 +12,13 @@ tags:
 - University
 - FinOps
 - FOCUS
-description: >-
-  FinOps profile for Tsinghua University. As a non-commercial higher-education institution, its
-  APIs carry no usage-based billing; there is no invoiced cost to allocate or optimize.
-  FinOps relevance is limited to the institution's own internal cloud/infrastructure
-  cost management, which is not publicly disclosed.
-notes: No public usage-based API billing; Tsinghua University's APIs are free/open or affiliation-gated.
+description: FinOps profile for Tsinghua University. As a non-commercial higher-education institution,
+  its APIs carry no usage-based billing; there is no invoiced cost to allocate or optimize. FinOps relevance
+  is limited to the institution's own internal cloud/infrastructure cost management, which is not publicly
+  disclosed.
+notes: 'No public usage-based API billing. Confirmed 2026-08-19: Tsinghua''s entire public machine-readable
+  footprint is three unauthenticated endpoints with no plan, quota or meter; everything else is affiliation-gated
+  rather than sold. There is no invoiced API cost to allocate.'
 sources:
 - https://raw.githubusercontent.com/api-evangelist/tsinghua/refs/heads/main/apis.yml
 - https://www.finops.org/framework/
@@ -54,3 +55,5 @@ principles:
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
+generated: '2026-08-19'
+method: derived

@@ -3,7 +3,7 @@ name: Tsinghua University
 description: Tsinghua University public developer/API footprint review for APIs.json cataloging.
 url: https://raw.githubusercontent.com/api-evangelist/tsinghua/refs/heads/main/review.yml
 created: '2026-06-03'
-modified: '2026-06-03'
+modified: '2026-08-19'
 reviews:
   - date: '2026-06-03'
     rating: 2
@@ -40,3 +40,61 @@ reviews:
       - url: https://www.linkedin.com/school/tsinghua-university/
         status: 999
         note: Official LinkedIn school page exists; 999 is LinkedIn anti-bot, not a dead link.
+  - date: '2026-08-19'
+    rating: 3
+    summary: >-
+      University-pipeline re-profile with the operator axis applied. The June pass was
+      directionally right — no developer portal, everything behind campus SSO — but it under-read
+      the footprint on three counts, and this pass corrects all three. First, the ISO image
+      catalog it recorded as a 404 is live at the correct path, /static/status/isoinfo.json
+      (HTTP 200, 461KB, 67 entries) rather than /status/isoinfo.json. Second, Tsinghua runs its
+      own Shibboleth Identity Provider and publishes SAML 2.0 federation metadata at
+      idp.tsinghua.edu.cn/idp/shibboleth (HTTP 200, 14,622 bytes, entityID
+      https://idp.tsinghua.edu.cn/idp/shibboleth, shibmd:Scope tsinghua.edu.cn) with every SSO
+      and SLO location on a Tsinghua host — an institution-operated identity federation surface
+      that was not catalogued at all. Third, the university library holds a DataCite direct
+      membership in its own name (symbol TSINGHUA, joined 2016) with 194 DOIs on prefix 10.23650,
+      and two Tsinghua academic units hold their own Crossref memberships. Also newly recorded:
+      the mirror edge serves 403 to browser User-Agents and 200 to plain tool User-Agents, the
+      inverse of a normal bot filter; and the DOI resolution host datacite.lib.tsinghua.edu.cn
+      completes TCP and TLS but returns zero bytes to an HTTP GET after 60 seconds from outside
+      China. No vendor tenancy of any kind was found — no Figshare, Pure, Symplectic, Ex Libris
+      or Dataverse — so unlike most of this cohort there was no misattributed vendor contract to
+      remove. All four apis[] entries are x-operator institution. No endpoints were fabricated.
+    endpoints:
+      - url: https://mirrors.tuna.tsinghua.edu.cn/static/tunasync.json
+        status: 200
+        note: 'Live JSON, 74,172 bytes — with a plain tool User-Agent; the same URL returns 403 to a browser User-Agent.'
+      - url: https://mirrors.tuna.tsinghua.edu.cn/static/status/isoinfo.json
+        status: 200
+        note: Installable-image catalog, 461,306 bytes, 67 entries across os/font/app. Corrects the June 404.
+      - url: https://idp.tsinghua.edu.cn/idp/shibboleth
+        status: 200
+        note: SAML 2.0 EntityDescriptor, institution-operated Shibboleth IdP. New find.
+      - url: https://api.datacite.org/providers/tsinghua
+        status: 200
+        note: DataCite direct member, symbol TSINGHUA, joined 2016-09-05, 194 DOIs on prefix 10.23650.
+      - url: https://datacite.lib.tsinghua.edu.cn/
+        status: 0
+        note: TCP 443 open, TLS valid (*.tsinghua.edu.cn), HTTP returns zero bytes after 60s.
+      - url: https://www.re3data.org/api/beta/repositories?query=tsinghua
+        status: 200
+        note: Empty list — Tsinghua registers no repository, so no OAI-PMH base URL is recorded anywhere.
+      - url: https://lib.tsinghua.edu.cn/oai/request?verb=Identify
+        status: 404
+        note: No OAI-PMH endpoint on the library host.
+      - url: https://git.tsinghua.edu.cn/
+        status: 200
+        note: Institution-run GitLab, THU ID authentication only, no anonymous project access.
+      - url: https://learn.tsinghua.edu.cn/
+        status: 200
+        note: Learning platform login page; campus SSO only.
+      - url: https://zhjwxk.cic.tsinghua.edu.cn/
+        status: 200
+        note: Course registration; redirects to id.tsinghua.edu.cn login.
+      - url: https://www.tsinghua.edu.cn/info/1182/122980.htm
+        status: 200
+        note: 《清华大学人工智能教育应用指导原则》, published 2025-12-04 — institutional AI policy, recorded as AIPolicy.
+      - url: https://www.tsinghua.edu.cn/robots.txt
+        status: 404
+        note: No robots.txt; llms.txt also 404.

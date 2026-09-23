@@ -4,23 +4,29 @@ schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main
 provider: Tsinghua University
 providerId: tsinghua
 created: '2026-06-03'
-modified: '2026-06-03'
+modified: '2026-08-19'
 reconciled: false
 tags:
 - Education
 - Higher Education
 - University
 - Rate Limiting
-description: >-
-  Tsinghua University does not publish a unified public rate-limit table across its APIs. Open
-  metadata and harvesting endpoints (OAI-PMH, IIIF, library) may throttle large-scale
-  or automated harvesting; clients should harvest politely, honor Retry-After, and
-  contact the relevant service for bulk access.
-notes: Confirm per-service limits with each API's documentation; harvest responsibly.
+description: 'Tsinghua University publishes no rate-limit documentation of any kind, and none of its three
+  publicly reachable machine-readable endpoints returned a rate-limit header, a Retry-After, or a 429
+  in a full probe pass on 2026-08-19. The one throttle-shaped behaviour observed is not a rate limit at
+  all: the TUNA mirror edge answers HTTP 403 with an HTML denial page to requests carrying a desktop-browser
+  User-Agent, while answering the identical request 200 for a plain tool User-Agent. Callers should still
+  harvest politely — the mirror is a shared community resource and the ISO catalog response alone is 461KB.'
+notes: Corrected 2026-08-19. The June 2026 version of this file described throttling on "OAI-PMH, IIIF,
+  library" harvesting endpoints; no such endpoints exist on any Tsinghua host. No 429 was observed and
+  no rate-limit header is published.
 sources:
 - https://raw.githubusercontent.com/api-evangelist/tsinghua/refs/heads/main/apis.yml
+- https://raw.githubusercontent.com/api-evangelist/tsinghua/refs/heads/main/errors/tsinghua-errors.yml
 responseCodes:
   throttled: 429
+  observed: none — no 429 returned in any probe; 403 observed but it is a User-Agent filter, not a rate
+    limit
 limits:
 - name: Default
   scope: client
@@ -33,3 +39,5 @@ policies:
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
+generated: '2026-08-19'
+method: probed

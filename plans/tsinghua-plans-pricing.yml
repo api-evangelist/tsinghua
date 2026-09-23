@@ -4,30 +4,33 @@ schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main
 provider: Tsinghua University
 providerId: tsinghua
 created: '2026-06-03'
-modified: '2026-06-03'
+modified: '2026-08-19'
 reconciled: false
 tags:
 - Education
 - Higher Education
 - University
 - Plans
-description: >-
-  Tsinghua University is a non-commercial higher-education institution; its APIs are not sold
-  as a commercial product. Public APIs (library, repository, course, and open-metadata
-  interfaces) are offered free of charge, typically for non-commercial use. Most
-  administrative and identity APIs are not openly self-service and require institutional
-  affiliation, credentials, or federation membership rather than a paid plan.
-notes: >-
-  No published per-seat or per-call commercial pricing. "Free / Open" reflects open
-  public endpoints; "Affiliation / Credentialed" reflects access gated by institutional
-  identity rather than payment.
+description: 'Tsinghua University is a non-commercial public higher-education institution; nothing it
+  exposes is sold as a product. The three publicly reachable machine-readable surfaces verified on 2026-08-19
+  — the TUNA mirror''s sync-status and installable-image documents, and the Shibboleth IdP''s SAML 2.0
+  federation metadata — are free, unauthenticated, and carry no plan, quota, signup or terms of use of
+  any kind. Everything else the university runs is not priced but gated: access is granted by institutional
+  affiliation through id.tsinghua.edu.cn, not by purchase. No developer portal, no API key issuance and
+  no commercial API terms were found.'
+notes: Corrected 2026-08-19. The June 2026 version of this file described free "library, repository, course,
+  and open-metadata interfaces"; no such public interfaces were found on any Tsinghua host in a full probe
+  pass. "Free / Open" here means exactly three unauthenticated endpoints; "Affiliation / Credentialed"
+  means campus SSO, which is not a plan tier.
 sources:
 - https://raw.githubusercontent.com/api-evangelist/tsinghua/refs/heads/main/apis.yml
+- https://raw.githubusercontent.com/api-evangelist/tsinghua/refs/heads/main/authentication/tsinghua-authentication.yml
 plans:
 - id: tsinghua-free-open
   name: Free / Open
   type: free
-  description: Public open APIs (metadata, library, repository, course data) offered at no charge, generally for non-commercial use.
+  description: Public open APIs (metadata, library, repository, course data) offered at no charge, generally
+    for non-commercial use.
   entries:
   - label: Open API Access
     name: open_api_access
@@ -42,7 +45,8 @@ plans:
 - id: tsinghua-affiliation
   name: Affiliation / Credentialed
   type: free
-  description: Administrative and identity APIs gated behind institutional SSO, client certificates, or federation membership rather than payment.
+  description: Administrative and identity APIs gated behind institutional SSO, client certificates, or
+    federation membership rather than payment.
   entries:
   - label: Credentialed Access
     name: credentialed_access
@@ -57,3 +61,5 @@ plans:
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
+generated: '2026-08-19'
+method: probed

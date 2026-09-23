@@ -1,7 +1,7 @@
 openapi: 3.2.0
 info:
   title: TUNA Mirror ISO Image Catalog ISO Images API
-  description: 'Public, unauthenticated JSON endpoint published by the Tsinghua University TUNA open-source mirror site (mirrors.tuna.tsinghua.edu.cn). It is the machine-readable catalog behind the site''s "获取安装镜像 / Get Installation Images" page: for every distribution, font collection and application TUNA mirrors an installable image for, it lists the release name and the mirror-relative download path. Sixty-six distributions across three categories (os, font, app) were present in the response observed on 2026-08-19. This OpenAPI description was produced faithfully from the live response structure; TUNA publishes no formal machine-readable specification for it.'
+  description: Public, unauthenticated JSON endpoint published by the Tsinghua University TUNA open-source mirror site (mirrors.tuna.tsinghua.edu.cn).
   version: 1.0.0
   contact:
     name: TUNA Association, Tsinghua University
