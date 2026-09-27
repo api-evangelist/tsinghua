@@ -44,6 +44,26 @@ paths:
                 type: string
 components:
   schemas:
+    IsoImage:
+      type: object
+      description: A single named installable image served by the mirror.
+      required:
+      - name
+      - url
+      properties:
+        name:
+          type: string
+          description: Human-readable release/edition label.
+          example: 26.04 (amd64, Server)
+        url:
+          type: string
+          description: Download path relative to the mirror site root (https://mirrors.tuna.tsinghua.edu.cn).
+          example: /ubuntu-releases/resolute/ubuntu-26.04-live-server-amd64.iso
+    IsoCatalog:
+      type: array
+      description: Collection of installable-image catalog entries, one per distribution.
+      items:
+        $ref: '#/components/schemas/IsoCatalogEntry'
     IsoCatalogEntry:
       type: object
       description: One mirrored distribution, font collection or application and its images.
@@ -69,23 +89,3 @@ components:
           description: Named download locations for this entry.
           items:
             $ref: '#/components/schemas/IsoImage'
-    IsoImage:
-      type: object
-      description: A single named installable image served by the mirror.
-      required:
-      - name
-      - url
-      properties:
-        name:
-          type: string
-          description: Human-readable release/edition label.
-          example: 26.04 (amd64, Server)
-        url:
-          type: string
-          description: Download path relative to the mirror site root (https://mirrors.tuna.tsinghua.edu.cn).
-          example: /ubuntu-releases/resolute/ubuntu-26.04-live-server-amd64.iso
-    IsoCatalog:
-      type: array
-      description: Collection of installable-image catalog entries, one per distribution.
-      items:
-        $ref: '#/components/schemas/IsoCatalogEntry'

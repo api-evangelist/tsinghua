@@ -32,6 +32,11 @@ paths:
                 $ref: '#/components/schemas/MirrorStatusList'
 components:
   schemas:
+    MirrorStatusList:
+      type: array
+      description: Collection of per-mirror synchronization status entries.
+      items:
+        $ref: '#/components/schemas/MirrorStatus'
     MirrorStatus:
       type: object
       description: Synchronization status for a single mirrored repository.
@@ -111,8 +116,3 @@ components:
           type: string
           description: Human-readable on-disk size of the mirror (e.g. "11.4G", "1.26T").
           example: 54.0G
-    MirrorStatusList:
-      type: array
-      description: Collection of per-mirror synchronization status entries.
-      items:
-        $ref: '#/components/schemas/MirrorStatus'

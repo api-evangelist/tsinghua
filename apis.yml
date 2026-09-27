@@ -74,7 +74,7 @@ tags:
   - Beijing
   - C9 League
   - Research
-  - Open-Source
+  - Open Source
   - Mirror
   - Identity Federation
   - Shibboleth
@@ -98,6 +98,7 @@ tags_raw:
   - Research Data
   - DOI
   - Library
+  - Open-Source
 apis:
 - aid: tsinghua:tsinghua-mirror-status-api
   name: Tsinghua University TUNA Open Source Mirror
@@ -119,13 +120,14 @@ apis:
   tags:
   - Mirror Status
   - ISO Images
-  - Open-Source
+  - Open Source
   - Package Mirror
   tags_raw:
   - Mirror Status
   - ISO Images
   - Open Source
   - Package Mirror
+  - Open-Source
   properties:
   - type: OpenAPI
     url: openapi/tsinghua-mirror-status-api-openapi.yml
