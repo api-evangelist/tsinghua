@@ -1,4 +1,4 @@
-# Tsinghua University (tsinghua)
+# Tsinghua University
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -64,69 +64,157 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-Tsinghua University (清华大学) is a public national research university in Beijing, China, a member of the C9 League and one of the highest-ranked universities in Asia. This repository catalogs Tsinghua's public developer and API footprint as an [APIs.json](https://apisjson.org) profile. Tsinghua runs no developer portal, no open data portal and no API key issuance; every system it operates for its own community terminates at one campus identity service (`id.tsinghua.edu.cn`). What it does publish, unauthenticated and machine-readable, is three documents — two from the student-run TUNA open-source mirror and one from the university's own Shibboleth identity provider — plus a DataCite membership held in the university's own name.
+Tsinghua University (清华大学) is a public national research university in Beijing, China, a member of the C9 League and the Double First-Class construction programme, and one of the highest-ranked universities in Asia. Its programmable footprint is small, real, and almost entirely invisible from outside the campus network. Tsinghua operates no developer portal, no open data portal and no API key issuance of any kind: api.tsinghua.edu.cn, open.tsinghua.edu.cn and data.tsinghua.edu.cn do not resolve. Every system the university runs for its own community — the learning platform (learn.tsinghua.edu.cn), course registration (zhjwxk.cic.tsinghua.edu.cn), the institutional GitLab (git.tsinghua.edu.cn), Tsinghua Cloud (cloud.tsinghua.edu.cn), the information portal and the campus card — terminates at one electronic identity service, id.tsinghua.edu.cn, and is unreachable without institutional affiliation. What Tsinghua does publish, unauthenticated and machine-readable, is three things, and all three are the institution's own rather than a vendor's. First, the TUNA open-source mirror (mirrors.tuna.tsinghua.edu.cn), run by the student TUNA association on the university's own domain and infrastructure, which serves two live JSON documents: the tunasync synchronization status of every mirrored repository, and a catalog of the installable images for 66 distributions, font collections and applications. Second, and more consequential for a university, Tsinghua runs its own Shibboleth Identity Provider at idp.tsinghua.edu.cn and publishes SAML 2.0 federation metadata about it — entityID https://idp.tsinghua.edu.cn/idp/shibboleth, shibmd:Scope tsinghua.edu.cn — with every SingleSignOnService and SingleLogoutService location resolving to a Tsinghua host rather than to a federation vendor. Third, the university library holds a DataCite direct membership in its own name (symbol TSINGHUA, joined 2016) under which 194 DOIs are registered on prefix 10.23650, resolving to datacite.lib.tsinghua.edu.cn. Two honest qualifications belong in this description. The DOI landing-page host completes TCP and TLS but returns nothing to an HTTP GET after 60 seconds from outside China, so those 194 DOIs are registered but unresolvable from here. And the mirror's edge answers HTTP 403 to requests carrying a desktop-browser User-Agent while answering the same request 200 for a plain tool User-Agent — the inverse of the usual bot filter, and enough to lock out any agent that spoofs a browser. Notably, Tsinghua holds no Figshare, Elsevier Pure, Symplectic, Ex Libris or Dataverse tenancy that could be found: unlike most of this cohort, there is no vendor contract masquerading as this institution's engineering. Tsinghua research groups (THUDM, THUNLP, THUML, TUNA) publish substantial open-source code on GitHub, but those are project repositories, not an institutional API programme, and they are recorded as pointers rather than as surfaces.
 
-Re-profiled 2026-08-19 under the API Evangelist **university pipeline**, which settles *who operates* each surface before saving any contract. Every surface in this repo is `x-operator: institution`. No vendor tenancy — no Figshare, Elsevier Pure, Symplectic, Ex Libris or Dataverse — was found for this institution, which makes it one of the few in the cohort with no misattributed vendor contract to strip.
+**Areas:** Education · Higher Education · University · China · Beijing · C9 League · Research · Open Source · Mirror · Identity Federation · Shibboleth · SAML
 
-- APIs.json: https://raw.githubusercontent.com/api-evangelist/tsinghua/refs/heads/main/apis.yml
-- Run with Naftiko: https://github.com/naftiko/fleet?utm_source=api-evangelist&utm_medium=readme&utm_campaign=tsinghua-api-evangelist&utm_content=repo
+## Tsinghua University on APIs.io
 
-## Type
+Everything profiled for Tsinghua University is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/tsinghua/](https://apis.io/providers/tsinghua/)** — or go straight to one of the APIs or properties below.
 
-- Index
-- Consumer
-- 3rd-Party
-- `x-type: university` · `x-category: Public Research University`
+### APIs (4)
 
-## Tags
+- [Tsinghua University TUNA Open Source Mirror](https://apis.io/apis/tsinghua/tsinghua-mirror-status-api/) — The TUNA open-source software mirror is the one surface Tsinghua publishes that behaves like a public API. It is operated by TUNA (Tsinghua University TUNA…
+- [Tsinghua University Identity Provider — SAML 2.0 Federation Metadata](https://apis.io/apis/tsinghua/identity-federation/) — Tsinghua operates its own Shibboleth Identity Provider and publishes machine-readable SAML 2.0 metadata about it at a public, unauthenticated URL on its own…
+- [Tsinghua University DataCite DOI Registration and Resolution](https://apis.io/apis/tsinghua/datacite-doi/) — Tsinghua University holds a DataCite membership in its own name — symbol TSINGHUA, memberType direct_member, organizationType academicInstitution, joined…
+- [Tsinghua University GitLab](https://apis.io/apis/tsinghua/gitlab/) — Tsinghua runs its own GitLab instance at git.tsinghua.edu.cn, on its own registrable domain and behind its own identity service — the sign-in page's only…
 
-Education, Higher Education, University, China, Beijing, C9 League, Research, Open Source, Mirror, Identity Federation, Shibboleth, SAML, Research Data, DOI, Library
+### Published properties
 
-## Surfaces
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-All four are operated by Tsinghua on Tsinghua's own registrable domain.
+#### Agentic access (1)
 
-- **Tsinghua University TUNA Open Source Mirror** (`institution`) — two live, unauthenticated JSON documents on `mirrors.tuna.tsinghua.edu.cn`: `/static/tunasync.json` (per-mirror sync status) and `/static/status/isoinfo.json` (installable-image catalog, 67 entries across os/font/app). Operated by the student TUNA association on university infrastructure.
-- **Tsinghua University Identity Provider — SAML 2.0 federation metadata** (`institution`) — `idp.tsinghua.edu.cn/idp/shibboleth`, entityID `https://idp.tsinghua.edu.cn/idp/shibboleth`, `shibmd:Scope` `tsinghua.edu.cn`. Every SSO and SLO location resolves to a Tsinghua host; the university runs the SAML service itself rather than fronting it with a federation vendor.
-- **Tsinghua University DataCite DOI registration and resolution** (`institution`) — DataCite direct member, symbol `TSINGHUA`, joined 2016-09-05, 194 DOIs on prefix `10.23650`, landing pages on `datacite.lib.tsinghua.edu.cn`. Registered and real; the resolution host does not answer HTTP from outside China.
-- **Tsinghua University GitLab** (`institution`, gated) — `git.tsinghua.edu.cn`, authenticating only against THU ID. No contract is saved: the API is GitLab's product API, not Tsinghua's engineering.
+Which operations an agent can call, which act, and which need a human in the loop.
 
-## Domain-standard conformance (Kin Score `education` regime)
+- [Tsinghua Agentic Access](https://apis.io/agentic-access/tsinghua/tsinghua-agentic-access/)
 
-Evidenced: `saml`, `shibboleth`, `datacite`, `crossref`. Not evidenced: `oai-pmh`, `scim`, `lti`, `oneroster`, `ed-fi`, `caliper`, `qti`, `orcid`. See [conformance/tsinghua-conformance.yml](conformance/tsinghua-conformance.yml) — every hit carries the exact location it was observed at.
+#### JSON Schema (2)
 
-## Artifacts
+The data models the API reads and writes.
 
-- [openapi/](openapi/) — three contracts, with pristine pre-refine copies in `openapi/_original/`
-- [conformance/](conformance/) · [authentication/](authentication/) · [errors/](errors/) · [lifecycle/](lifecycle/)
-- [json-schema/](json-schema/) · [examples/](examples/) · [vocabulary/](vocabulary/) · [json-ld/](json-ld/) · [rules/](rules/)
-- [plans/tsinghua-plans-pricing.yml](plans/tsinghua-plans-pricing.yml) · [rate-limits/tsinghua-rate-limits.yml](rate-limits/tsinghua-rate-limits.yml) · [finops/tsinghua-finops.yml](finops/tsinghua-finops.yml)
+- [IsoCatalogEntry](https://apis.io/schemas/tsinghua/tsinghua-mirror-isoinfo/)
+- [MirrorStatus](https://apis.io/schemas/tsinghua/tsinghua-mirror-status/)
 
-## Timestamps
+#### JSON Structure (1)
 
-- Created: 2026-06-03
-- Modified: 2026-08-19
+Data models expressed in JSON Structure.
 
-## Common Properties
+- [Tsinghua Mirror Status Structure](https://apis.io/json-structure/tsinghua/tsinghua-mirror-status-structure/)
 
-- Website: https://www.tsinghua.edu.cn/en/
-- Library: https://lib.tsinghua.edu.cn/en/
-- Identity federation: https://idp.tsinghua.edu.cn/idp/shibboleth
-- AI policy: https://www.tsinghua.edu.cn/info/1182/122980.htm — 《清华大学人工智能教育应用指导原则》 (2025-12-04)
-- GitHub (TUNA): https://github.com/tuna
-- LinkedIn: https://www.linkedin.com/school/tsinghua-university/
+#### JSON-LD (1)
 
-## Notes
+Linked-data contexts for the provider's vocabulary.
 
-- The TUNA mirror edge returns **HTTP 403** with an HTML denial page to requests carrying a desktop-browser `User-Agent`, and **HTTP 200** to the identical request with a plain tool `User-Agent`. This is the inverse of a normal bot filter and it locks out any agent that spoofs a browser.
-- `datacite.lib.tsinghua.edu.cn` completes TCP and a valid TLS handshake but returns zero bytes to an HTTP GET after 60 seconds from outside China. Live host, unreadable surface — not recorded as dead.
-- The June 2026 profile recorded `status/isoinfo.json` as a 404. The document is live at the correct path, `/static/status/isoinfo.json`; that correction is why this repo now carries two mirror contracts.
-- No OAI-PMH endpoint was found on any Tsinghua host, and re3data lists no Tsinghua repository at all.
-- `api.`, `open.`, `data.`, `opendata.`, `oai.`, `dataverse.` and `hpc.tsinghua.edu.cn` do not resolve. A control probe on two nonsense subdomains confirms `tsinghua.edu.cn` has no wildcard DNS, so the hosts that do resolve are real.
-- Research-lab GitHub orgs (THUDM, THUNLP, THUML) host substantial open-source code but are project repositories, not an institution-wide API platform, so they are recorded as pointers rather than as surfaces.
-- Tsinghua University Press (`sciopen.com`, Crossref member 11138, 26,024 DOIs) is a separate publishing company and is deliberately **not** credited to the university.
-- No endpoints, docs URLs, or properties were fabricated.
+- [Tsinghua Context](https://apis.io/jsonld/tsinghua/tsinghua-context/)
 
-## Maintainers
+#### Vocabulary (1)
 
-- Kin Lane — kin@apievangelist.com
+The provider's domain terms, defined.
+
+- [Tsinghua TUNA Mirror Sync Vocabulary](https://apis.io/vocabularies/tsinghua/tsinghua-vocabulary/)
+
+#### Examples (1)
+
+Example requests and responses.
+
+- [Tsinghua Getmirrorisocatalog Example](https://apis.io/examples/tsinghua/tsinghua-getMirrorIsoCatalog-example/)
+
+#### Collections (1)
+
+Postman and Open Collection request collections.
+
+- [TUNA Mirror Sync Status Mirror Status API](https://apis.io/collections/tsinghua/open-tsinghua-mirror-status-api/)
+
+#### Governance rules (2)
+
+Spectral rulesets for the provider's contracts.
+
+- [Tsinghua University — jsonschema rules](https://apis.io/rules/tsinghua/tsinghua-jsonschema-spectral-rules/)
+- [Tsinghua University API Rules](https://apis.io/rules/tsinghua/tsinghua-rules/)
+
+#### Security (2)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Tsinghua Authentication](https://apis.io/security/tsinghua/tsinghua-authentication/)
+- [Tsinghua Domain Security](https://apis.io/security/tsinghua/tsinghua-domain-security/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Tsinghua Plans Pricing](https://apis.io/plans/tsinghua/tsinghua-plans-pricing/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Tsinghua Rate Limits](https://apis.io/rate-limits/tsinghua/tsinghua-rate-limits/)
+
+#### FinOps (1)
+
+What the API costs to run, by operation.
+
+- [Tsinghua Finops](https://apis.io/finops/tsinghua/tsinghua-finops/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://www.tsinghua.edu.cn/en/)
+- [Documentation](https://mirrors.tuna.tsinghua.edu.cn/help/AOSP/)
+- [GitHub](https://github.com/tuna)
+
+## API Evangelist rating
+
+**Kin Score 35.0** — thin · rubric 0.24.0 · scored 2026-10-17
+
+| Facet | Score |
+|---|---|
+| Discoverability | 62.5 |
+| Contract quality | 60.0 |
+| Contract governance | 17.4 |
+| Operational transparency | 26.3 |
+| Developer ergonomics | 21.4 |
+| Access clarity | 21.1 |
+
+**Agent readiness 24.4** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | na |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | na |
+| Error Semantics | — |
+| OpenAPI Examples | documented (partial credit) |
+| Rate Limit Signal | documented (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | na |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+
+**Regulatory alignment 16.7** — Education & Research
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/tsinghua/](https://apis.io/providers/tsinghua/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Tsinghua University: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/tsinghua/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
